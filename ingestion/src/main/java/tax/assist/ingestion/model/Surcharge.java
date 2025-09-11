@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class Surcharge {
-    private String threshold;
-    private String rate;
+    private double rate;
+    private double threshold;
+    private String description;
+    private String applicableFor;
 }

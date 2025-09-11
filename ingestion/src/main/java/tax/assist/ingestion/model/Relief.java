@@ -6,4 +6,7 @@ import lombok.Data;
 public class Relief {
     private String section;
     private String description;
+    private double maxAmount;
+    private String conditions;
+    private String category; // e.g., "80C", "80D", etc.
 }

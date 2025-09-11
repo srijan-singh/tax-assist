@@ -16,7 +16,5 @@ public class EmbeddingService {
     public void ingestITR() throws Exception {
         // TODO: Use parseService to get chunks from text to ingest in VectorDB
     }
-
-    
 }
 

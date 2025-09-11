@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class Slab {
-    private String range;
-    private String rate;
-    private String category;
+    private double fromAmount;
+    private double toAmount;
+    private double rate;
+    private String description;
 }

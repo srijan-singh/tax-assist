@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class Rebate {
     private String section;
-    private String eligibility;
-    private double amount;
+    private double maxAmount;
+    private String conditions;
+    private double incomeThreshold;
 }
