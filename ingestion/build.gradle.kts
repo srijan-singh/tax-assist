@@ -13,7 +13,7 @@ repositories {
     maven { url = uri("https://repo.spring.io/snapshot") }
 }
 
-extra["springAiVersion"] = "1.0.0"
+extra["springAiVersion"] = "1.0.1"
 
 dependencyManagement {
     imports {
@@ -27,13 +27,20 @@ dependencies {
     // Lombok
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
     // Spring Boot Web
     implementation("org.springframework.boot:spring-boot-starter-web")
     // PDF parsing
     implementation("org.apache.pdfbox:pdfbox:2.0.30")
+    implementation("org.apache.pdfbox:pdfbox-tools:2.0.30")
     // JSON
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.2")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.17.2")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.17.2")
+    // qdrant
+    implementation("io.qdrant:client:1.7.0")
+    implementation("org.springframework.ai:spring-ai-qdrant-store-spring-boot-starter")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.test {
