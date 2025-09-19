@@ -20,4 +20,14 @@ public class TaxSuggestion {
     private BigDecimal potentialSaving;
     private Priority priority;
     private String deadline;
+
+    public TaxSuggestion(String type, String description, BigDecimal currentAmount,
+                         BigDecimal suggestedAmount, BigDecimal potentialSaving, Priority priority) {
+        this.type = type;
+        this.description = description;
+        this.currentAmount = currentAmount;
+        this.suggestedAmount = suggestedAmount;
+        this.potentialSaving = potentialSaving;
+        this.priority = priority;
+    }
 }
