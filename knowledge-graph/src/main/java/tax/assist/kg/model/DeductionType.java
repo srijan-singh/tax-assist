@@ -1,0 +1,6 @@
+package tax.assist.kg.model;
+
+public enum DeductionType {
+    INVESTMENT, HEALTH_INSURANCE, HOME_LOAN_INTEREST, EDUCATION_LOAN,
+    DISABILITY, DONATION, RENT_PAID, SAVINGS_ACCOUNT
+}
