@@ -1,0 +1,6 @@
+package tax.assist.kg.model;
+
+public enum SalaryComponentType {
+    BASIC_SALARY, HRA, SPECIAL_ALLOWANCE, TRANSPORT_ALLOWANCE,
+    MEDICAL_ALLOWANCE, LTA, BONUS, PROFESSIONAL_TAX, PF_EMPLOYEE, ESI_EMPLOYEE
+}
