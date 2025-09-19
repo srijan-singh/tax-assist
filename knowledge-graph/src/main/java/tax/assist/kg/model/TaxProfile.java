@@ -30,4 +30,9 @@ public class TaxProfile {
     @Relationship(type = "HAS_TAX_SCENARIO", direction = Relationship.Direction.OUTGOING)
     private Set<TaxScenario> taxScenarios = new HashSet<>();
 
+    public TaxProfile(String pan, String name, Integer age) {
+        this.pan = pan;
+        this.name = name;
+        this.age = age;
+    }
 }

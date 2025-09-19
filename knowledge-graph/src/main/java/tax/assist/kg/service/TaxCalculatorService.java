@@ -1,9 +1,10 @@
 package tax.assist.kg.service;
 
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tax.assist.kg.model.*;
-import tax.assist.kg.repo.DeductionRepository;
 import tax.assist.kg.repo.Form16Repository;
 import tax.assist.kg.repo.TaxRegimeRepository;
 
@@ -17,25 +18,19 @@ import java.util.Set;
 @Transactional
 public class TaxCalculatorService {
 
-    private final TaxRegimeRepository taxRegimeRepository;
-    private final DeductionRepository deductionRepository;
-    private final Form16Repository form16Repository;
+    @Autowired
+    private TaxRegimeRepository taxRegimeRepository;
 
-    public TaxCalculatorService(TaxRegimeRepository taxRegimeRepository,
-                                DeductionRepository deductionRepository,
-                                Form16Repository form16Repository) {
-        this.taxRegimeRepository = taxRegimeRepository;
-        this.deductionRepository = deductionRepository;
-        this.form16Repository = form16Repository;
-    }
+    @Autowired
+    private Form16Repository form16Repository;
 
     public TaxScenarioPair calculateTaxForBothRegimes(String pan, String financialYear) {
-        Form16 form16 = form16Repository.findCompleteForm16(pan, financialYear);
+        Form16 form16 = form16Repository.findByEmployeePANAndFinancialYear(pan, financialYear);
         if (form16 == null) {
             throw new IllegalArgumentException("Form16 not found for PAN: " + pan);
         }
 
-        List<TaxRegime> regimes = taxRegimeRepository.findActiveRegimesWithDetailsForYear(financialYear);
+        List<TaxRegime> regimes = taxRegimeRepository.findByFinancialYear(financialYear);
         TaxRegime oldRegime = regimes.stream()
                 .filter(regime -> "Old Regime".equals(regime.getName()))
                 .findFirst()
@@ -113,7 +108,7 @@ public class TaxCalculatorService {
 
         List<TaxSlab> sortedSlabs = slabs.stream()
                 .sorted(Comparator.comparing(TaxSlab::getMinIncome))
-                .collect(java.util.stream.Collectors.toList());
+                .toList();
 
         for (TaxSlab slab : sortedSlabs) {
             if (remainingIncome.compareTo(BigDecimal.ZERO) > 0 &&
@@ -140,6 +135,7 @@ public class TaxCalculatorService {
     }
 
     // Helper class to return pair of scenarios
+    @Getter
     public static class TaxScenarioPair {
         private final TaxScenario oldScenario;
         private final TaxScenario newScenario;
@@ -148,9 +144,6 @@ public class TaxCalculatorService {
             this.oldScenario = oldScenario;
             this.newScenario = newScenario;
         }
-
-        public TaxScenario getOldScenario() { return oldScenario; }
-        public TaxScenario getNewScenario() { return newScenario; }
     }
 }
 

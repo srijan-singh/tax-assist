@@ -17,4 +17,11 @@ public class TDSEntry {
     private BigDecimal amount;
     private String challanNo;
     private String dateOfDeposit;
+
+    public TDSEntry(String month, BigDecimal amount, String challanNo, String dateOfDeposit) {
+        this.month = month;
+        this.amount = amount;
+        this.challanNo = challanNo;
+        this.dateOfDeposit = dateOfDeposit;
+    }
 }

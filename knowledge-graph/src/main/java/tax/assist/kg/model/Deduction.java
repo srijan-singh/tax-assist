@@ -18,4 +18,13 @@ public class Deduction {
     private BigDecimal maxLimit;
     private DeductionType type;
     private String applicableRegime; // "OLD", "NEW", "BOTH"
+
+    public Deduction(String section, String description, BigDecimal maxLimit,
+                     DeductionType type, String applicableRegime) {
+        this.section = section;
+        this.description = description;
+        this.maxLimit = maxLimit;
+        this.type = type;
+        this.applicableRegime = applicableRegime;
+    }
 }

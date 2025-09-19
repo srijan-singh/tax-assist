@@ -16,4 +16,10 @@ public class TaxSlab {
     private BigDecimal minIncome;
     private BigDecimal maxIncome;
     private BigDecimal taxRate;
+
+    public TaxSlab(BigDecimal minIncome, BigDecimal maxIncome, BigDecimal taxRate) {
+        this.minIncome = minIncome;
+        this.maxIncome = maxIncome;
+        this.taxRate = taxRate;
+    }
 }

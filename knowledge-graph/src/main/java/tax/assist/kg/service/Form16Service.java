@@ -1,5 +1,6 @@
 package tax.assist.kg.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tax.assist.kg.model.Form16;
@@ -17,14 +18,11 @@ import java.util.List;
 @Transactional
 public class Form16Service {
 
-    private final Form16Repository form16Repository;
-    private final TaxProfileRepository taxProfileRepository;
+    @Autowired
+    private Form16Repository form16Repository;
 
-    public Form16Service(Form16Repository form16Repository,
-                         TaxProfileRepository taxProfileRepository) {
-        this.form16Repository = form16Repository;
-        this.taxProfileRepository = taxProfileRepository;
-    }
+    @Autowired
+    private TaxProfileRepository taxProfileRepository;
 
     public Form16 saveForm16(Form16 form16) {
         // Link to tax profile
@@ -40,7 +38,7 @@ public class Form16Service {
     }
 
     public Form16 getForm16ByPanAndYear(String pan, String financialYear) {
-        return form16Repository.findCompleteForm16(pan, financialYear);
+        return form16Repository.findByEmployeePANAndFinancialYear(pan, financialYear);
     }
 
     public List<String> validateForm16Data(Form16 form16) {
@@ -70,7 +68,6 @@ public class Form16Service {
                 errors.add("Sum of salary components doesn't match gross salary");
             }
         }
-
         return errors;
     }
 }

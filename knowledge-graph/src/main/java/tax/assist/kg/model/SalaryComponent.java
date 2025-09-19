@@ -18,4 +18,10 @@ public class SalaryComponent {
     private BigDecimal amount;
     private String exemptionRule;
     private BigDecimal exemptAmount = BigDecimal.ZERO;
+
+    public SalaryComponent(SalaryComponentType type, String description, BigDecimal amount) {
+        this.type = type;
+        this.description = description;
+        this.amount = amount;
+    }
 }

@@ -30,4 +30,14 @@ public class Form16 {
 
     @Relationship(type = "DECLARES_INVESTMENT", direction = Relationship.Direction.OUTGOING)
     private Set<DeclaredInvestment> declaredInvestments = new HashSet<>();
+
+    public Form16(String employerTAN, String employeePAN, String financialYear,
+                  String assessmentYear, String employerName, String employeeName) {
+        this.employerTAN = employerTAN;
+        this.employeePAN = employeePAN;
+        this.financialYear = financialYear;
+        this.assessmentYear = assessmentYear;
+        this.employerName = employerName;
+        this.employeeName = employeeName;
+    }
 }

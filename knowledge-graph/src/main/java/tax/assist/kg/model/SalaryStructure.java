@@ -23,4 +23,9 @@ public class SalaryStructure {
 
     @Relationship(type = "HAS_COMPONENT", direction = Relationship.Direction.OUTGOING)
     private Set<SalaryComponent> components = new HashSet<>();
+
+    public SalaryStructure(String financialYear, BigDecimal grossSalary) {
+        this.financialYear = financialYear;
+        this.grossSalary = grossSalary;
+    }
 }

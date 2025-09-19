@@ -18,4 +18,10 @@ public class DeclaredInvestment {
     private BigDecimal amount;
     private Boolean proofSubmitted = false;
 
+    public DeclaredInvestment(String section, String description, BigDecimal amount, Boolean proofSubmitted) {
+        this.section = section;
+        this.description = description;
+        this.amount = amount;
+        this.proofSubmitted = proofSubmitted;
+    }
 }

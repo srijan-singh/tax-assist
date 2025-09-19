@@ -1,5 +1,6 @@
 package tax.assist.kg.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tax.assist.kg.model.*;
@@ -14,20 +15,14 @@ import java.util.stream.Collectors;
 @Transactional
 public class TaxOptimizationService {
 
-    private final DeductionRepository deductionRepository;
-    private final Form16Repository form16Repository;
-    private final TaxCalculatorService taxCalculatorService;
+    @Autowired
+    private DeductionRepository deductionRepository;
 
-    public TaxOptimizationService(DeductionRepository deductionRepository,
-                                  Form16Repository form16Repository,
-                                  TaxCalculatorService taxCalculatorService) {
-        this.deductionRepository = deductionRepository;
-        this.form16Repository = form16Repository;
-        this.taxCalculatorService = taxCalculatorService;
-    }
+    @Autowired
+    private Form16Repository form16Repository;
 
     public List<TaxSuggestion> generateOptimizationSuggestions(String pan, String financialYear) {
-        Form16 form16 = form16Repository.findCompleteForm16(pan, financialYear);
+        Form16 form16 = form16Repository.findByEmployeePANAndFinancialYear(pan, financialYear);
         if (form16 == null) {
             throw new IllegalArgumentException("Form16 not found");
         }
@@ -60,7 +55,7 @@ public class TaxOptimizationService {
 
         return suggestions.stream()
                 .sorted((s1, s2) -> s2.getPotentialSaving().compareTo(s1.getPotentialSaving()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private TaxSuggestion createSuggestion(Deduction deduction, BigDecimal currentAmount, BigDecimal remainingLimit) {
@@ -78,7 +73,6 @@ public class TaxOptimizationService {
         if ("80C".equals(deduction.getSection())) {
             suggestion.setDeadline("March 31");
         }
-
         return suggestion;
     }
 
@@ -115,7 +109,6 @@ public class TaxOptimizationService {
                 );
             }
         }
-
         return null;
     }
 }
